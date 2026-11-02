@@ -119,7 +119,7 @@ La validación del hardware se realizó conectando el canal 1 del osciloscopio d
 
 | Vista Macro (Secuencia Completa 15 s) | Vista general |
 | :---: | :---: |
-| ![Secuencia Completa sEMG](osciloscopio.png) | ![Zoom Escalón DAC](osciloscopio.png) |
+| ![Secuencia Completa sEMG](osciloscopio.png) | ![Zoom Escalón DAC](conettion.jpg) |
 | *Escala: 2 s/div o 5 s/div. Se observa la secuencia periódica de 15 s (Reposo → Cierre → Extensión).* | *implementacion completa* |
 
 ---
