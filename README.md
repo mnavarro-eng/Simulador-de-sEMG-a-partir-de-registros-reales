@@ -1,5 +1,17 @@
-# Simulador-de-sEMG-a-partir-de-registros-reales
-Simulador de señales de electromiografía de superficie (sEMG) de 8 bits utilizando registros reales de PhysioNet y un DAC en ESP32
+
+# Simulador de Señales sEMG de 8-Bits con ESP32
+
+[![Licencia](https://img.shields.io/badge/Licencia-MIT-green.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
+[![C++](https://img.shields.io/badge/C%2B%2B-Arduino-00599C?style=flat&logo=cplusplus&logoColor=white)](https://www.arduino.cc/)
+[![ESP32](https://img.shields.io/badge/Hardware-ESP32--WROOM-E7352C?style=flat&logo=espressif&logoColor=white)](https://www.espressif.com/)
+[![PhysioNet](https://img.shields.io/badge/Dataset-GRABMyo--PhysioNet-blue.svg)](https://physionet.org/content/grabmyo/1.0.2/)
+
+Un simulador por hardware de electromiografía de superficie (sEMG) desarrollado para la asignatura de **Instrumentación Biomédica I**. El sistema procesa registros biomédicos reales extraídos de la base de datos pública **GRABMyo** (PhysioNet), los escala al rango dinámico de 8 bits del DAC de un microcontrolador **ESP32** y los reproduce en tiempo real a una frecuencia de muestreo de **2048 Hz**.
+
+Este módulo sirve como generador de prueba estándar y repetible para la etapa de acondicionamiento analógico (amplificadores de instrumentación y filtros) desarrollada en laboratorios posteriores.
+
+---
 ##  Características
 - **Base de datos:** PhysioNet (GRABMyo, Participante 1, Canal F12).
 - **Secuencia:** 15 segundos (Reposo -> Cierre de mano -> Extensión de índice).
@@ -15,56 +27,40 @@ Simulador de señales de electromiografía de superficie (sEMG) de 8 bits utiliz
 - Arduino IDE con soporte para ESP32
 - Python 3 / Google Colab (`wfdb`, `numpy`, `matplotlib`)
 
-
-# Simulador de Señales sEMG de 8-Bits con ESP32
-
-[![Licencia](https://img.shields.io/badge/Licencia-MIT-green.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
-[![C++](https://img.shields.io/badge/C%2B%2B-Arduino-00599C?style=flat&logo=cplusplus&logoColor=white)](https://www.arduino.cc/)
-[![ESP32](https://img.shields.io/badge/Hardware-ESP32--WROOM-E7352C?style=flat&logo=espressif&logoColor=white)](https://www.espressif.com/)
-[![PhysioNet](https://img.shields.io/badge/Dataset-GRABMyo--PhysioNet-blue.svg)](https://physionet.org/content/grabmyo/1.0.2/)
-
-Un simulador por hardware de electromiografía de superficie (sEMG) desarrollado para la asignatura de **Instrumentación Biomédica I**. El sistema procesa registros biomédicos reales extraídos de la base de datos pública **GRABMyo** (PhysioNet), los escala al rango dinámico de 8 bits del DAC de un microcontrolador **ESP32** y los reproduce en tiempo real a una frecuencia de muestreo de **2048 Hz**.
-
-Este módulo sirve como generador de prueba estándar y repetible para la etapa de acondicionamiento analógico (amplificadores de instrumentación y filtros) desarrollada en laboratorios posteriores.
-
----
-
 ## 👨‍💻 Autor y Contacto
 
 - **Estudiante:** Ingeniería Biomédica (Universidad Nacional Mayor de San Marcos)
 - **LinkedIn:** [linkedin.com](https://www.linkedin.com/)
-- **Correo Electrónico:** [tu_correo@unmsm.edu.pe](mailto:tu_correo@unmsm.edu.pe)
+- **Correo Electrónico:** @unmsm.edu.pe)
 
 ---
-
 ## 📐 Arquitectura del Sistema
 
-+-----------------------+
-| Base de Datos GRABMyo |
-+-----------------------+
-            |
-            v
-+-----------------------+
-| Google Colab (Python) | ---> Lectura, Concatenación y Escalado a 8-bits [0 - 255]
-+-----------------------+
-            |
-            v
-+-----------------------+
-|        semg.h         | ---> Matriz de 30,720 muestras guardada en memoria Flash
-+-----------------------+
-            |
-            v
-+-----------------------+
-| ESP32 (Firmware C++)  | ---> Reproducción no bloqueante vía micros() a Fs = 2048 Hz
-+-----------------------+
-            |
-            v
-+-----------------------+
-|  DAC Salida (GPIO25)  | ---> Señal analógica continua evaluada en Osciloscopio
-+-----------------------+
-
----
+```text
+┌───────────────────────┐
+│ Base de Datos GRABMyo │
+└───────────┬───────────┘
+            │
+            ▼
+┌───────────────────────┐
+│ Google Colab (Python) │ ───► Lectura, Concatenación y Escalado a 8-bits [0 - 255]
+└───────────┬───────────┘
+            │
+            ▼
+┌───────────────────────┐
+│        semg.h         │ ───► Matriz de 30,720 muestras guardada en Flash
+└───────────┬───────────┘
+            │
+            ▼
+┌───────────────────────┐
+│ ESP32 (Firmware C++)  │ ───► Reproducción no bloqueante vía micros() a Fs = 2048 Hz
+└───────────┬───────────┘
+            │
+            ▼
+┌───────────────────────┐
+│  DAC Salida (GPIO25)  │ ───► Señal analógica continua evaluada en Osciloscopio
+└───────────────────────┘
+```
 
 ## 📊 1. Procesamiento de la Señal (Python / Google Colab)
 
@@ -80,6 +76,8 @@ A partir del dataset **GRABMyo**, se seleccionó al **Participante 1 (Sesión 1,
 - **Exportación:** Se generó la cabecera `semg.h` almacenando la matriz `SEMG[]` en memoria Flash (`const uint8_t`).
 
 ---
+
+
 
 ## 💻 2. Firmware y Reproducción por DAC (ESP32)
 
@@ -114,3 +112,5 @@ void loop() {
     tiempoSiguiente += PERIODO_US; // Acumulación limpia del período
   }
 }
+```
+
