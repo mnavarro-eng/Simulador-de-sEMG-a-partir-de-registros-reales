@@ -113,4 +113,13 @@ void loop() {
   }
 }
 ```
+## 🔬 3. Verificación Experimental en Osciloscopio
 
+La validación del hardware se realizó conectando el canal 1 del osciloscopio digital al pin de salida **GPIO25 (DAC1)** y la referencia a **GND** del ESP32.
+
+| Vista Macro (Secuencia Completa 15 s) | Vista Micro (Zoom a Muestra ~0.49 ms) |
+| :---: | :---: |
+| ![Secuencia Completa sEMG](docs/osciloscopio_macro.png) | ![Zoom Escalón DAC](docs/osciloscopio_micro.png) |
+| *Escala: 2 s/div o 5 s/div. Se observa la secuencia periódica de 15 s (Reposo → Cierre → Extensión).* | *Escala: 100 µs/div. Retención de orden cero con retardo medido de ~0.49 ms a 2048 Hz.* |
+
+---
