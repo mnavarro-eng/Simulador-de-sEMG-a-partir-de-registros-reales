@@ -119,7 +119,7 @@ La validación del hardware se realizó conectando el canal 1 del osciloscopio d
 
 | Vista Macro (Secuencia Completa 15 s) | Vista Micro (Zoom a Muestra ~0.49 ms) |
 | :---: | :---: |
-| ![Secuencia Completa sEMG](docs/osciloscopio.png) | ![Zoom Escalón DAC](osciloscopio.png) |
+| ![Secuencia Completa sEMG](osciloscopio.png) | ![Zoom Escalón DAC](osciloscopio.png) |
 | *Escala: 2 s/div o 5 s/div. Se observa la secuencia periódica de 15 s (Reposo → Cierre → Extensión).* | *Escala: 100 µs/div. Retención de orden cero con retardo medido de ~0.49 ms a 2048 Hz.* |
 
 ---
